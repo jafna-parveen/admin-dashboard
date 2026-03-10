@@ -1,29 +1,27 @@
+import React from "react";
+import { Grid, Paper, Typography, Box, List, ListItem, ListItemText } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import React from 'react';
-import { Grid, Paper, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useState,useEffect } from 'react'
-import axios from "axios";
 import {
-  BookOutlined,
-  TeamOutlined,
-  QuestionCircleOutlined,
-  AppstoreOutlined
-} from '@ant-design/icons';
+  BankOutlined,
+  AppstoreOutlined,
+  ApartmentOutlined,
+  CustomerServiceOutlined
+} from "@ant-design/icons";
 
 const AnalyticsCard = () => {
 
-  const courses = useSelector((state) => state.course?.courses || []);
-const [students, setStudents] = useState([]);
+  const institutions = useSelector((state) => state.institution?.list || []);
+  const category = useSelector((state) => state.category?.list || []);
+  const subcategory = useSelector((state) => state.subcategory?.list || []);
+  const support = useSelector((state) => state.support?.list || []);
 
-useEffect(() => {
-  axios
-    .get("http://localhost:7000/api/institution-students", { withCredentials: true })
-    .then((res) => setStudents(res.data))
-    .catch((err) => console.log(err));
-}, []);  const enquiry = useSelector((state) => state.enquiry?.list || []);
-const seatmanagement = useSelector((state) => state.seatManagement?.seats || []);
+  /* ================= RECENT INSTITUTIONS ================= */
+
+  const recentInstitutions = [...institutions]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 5);
 
   const cardStyle = {
     p: 3,
@@ -47,69 +45,93 @@ const seatmanagement = useSelector((state) => state.seatManagement?.seats || [])
   };
 
   return (
-    <Grid container spacing={3} mb={4} >
+    <>
+      {/* ================= CARDS ================= */}
 
-      {/* COURSES */}
-      <Grid item xs={12} sm={6} md={3}>
-        <Link to="/courses" style={{ textDecoration: 'none' }}>
-          <Paper sx={cardStyle}>
-            <div>
-              <Typography variant="h4" fontWeight={700} color={ "#fff"}>
-                {courses.length}
-              </Typography>
-              <Typography>Courses</Typography>
-            </div>
-            <BookOutlined style={iconStyle} />
-          </Paper>
-        </Link>
+      <Grid container spacing={3} mb={4}>
+
+        {/* INSTITUTIONS */}
+        <Grid item xs={12} sm={6} md={3}>
+          <Link to="/institutions" style={{ textDecoration: "none" }}>
+            <Paper sx={cardStyle}>
+              <div>
+                <Typography variant="h4" fontWeight={700}>
+                  {institutions.length}
+                </Typography>
+                <Typography>Institutions</Typography>
+              </div>
+              <BankOutlined style={iconStyle} />
+            </Paper>
+          </Link>
+        </Grid>
+
+        {/* CATEGORY */}
+        <Grid item xs={12} sm={6} md={3}>
+          <Link to="/category" style={{ textDecoration: "none" }}>
+            <Paper sx={cardStyle}>
+              <div>
+                <Typography variant="h4" fontWeight={700}>
+                  {category.length}
+                </Typography>
+                <Typography>Category</Typography>
+              </div>
+              <AppstoreOutlined style={iconStyle} />
+            </Paper>
+          </Link>
+        </Grid>
+
+        {/* SUB CATEGORY */}
+        <Grid item xs={12} sm={6} md={3}>
+          <Link to="/subcategory" style={{ textDecoration: "none" }}>
+            <Paper sx={cardStyle}>
+              <div>
+                <Typography variant="h4" fontWeight={700}>
+                  {subcategory.length}
+                </Typography>
+                <Typography>Sub Category</Typography>
+              </div>
+              <ApartmentOutlined style={iconStyle} />
+            </Paper>
+          </Link>
+        </Grid>
+
+        {/* SUPPORT */}
+        <Grid item xs={12} sm={6} md={3}>
+          <Link to="/support" style={{ textDecoration: "none" }}>
+            <Paper sx={cardStyle}>
+              <div>
+                <Typography variant="h4" fontWeight={700}>
+                  {support.length}
+                </Typography>
+                <Typography>Support</Typography>
+              </div>
+              <CustomerServiceOutlined style={iconStyle} />
+            </Paper>
+          </Link>
+        </Grid>
+
       </Grid>
 
-      {/* STUDENTS */}
-      <Grid item xs={12} sm={6} md={3}>
-        <Link to="/students" style={{ textDecoration: 'none' }}>
-          <Paper sx={cardStyle}>
-            <div>
-              <Typography variant="h4" fontWeight={700} color={ "#fff"}>
-                {students.length}
-              </Typography>
-              <Typography>Students</Typography>
-            </div>
-            <TeamOutlined style={iconStyle} />
-          </Paper>
-        </Link>
-      </Grid>
+      {/* ================= RECENT INSTITUTIONS ================= */}
 
-      {/* ENQUIRIES */}
-      <Grid item xs={12} sm={6} md={3}>
-        <Link to="/enquiry" style={{ textDecoration: 'none' }}>
-          <Paper sx={cardStyle}>
-            <div>
-              <Typography variant="h4" fontWeight={700} color={ "#fff"}>
-                {enquiry.length}
-              </Typography>
-              <Typography>Enquiries</Typography>
-            </div>
-            <QuestionCircleOutlined style={iconStyle} />
-          </Paper>
-        </Link>
-      </Grid>
+      <Paper sx={{ p: 3, borderRadius: 3 }}>
+        <Typography variant="h6" mb={2}>
+          Recently Added Institutions
+        </Typography>
 
-      {/* SEAT MANAGEMENT */}
-      <Grid item xs={12} sm={6} md={3}>
-        <Link to="/seat-management" style={{ textDecoration: 'none' }}>
-          <Paper sx={cardStyle}>
-            <div>
-              <Typography variant="h4" fontWeight={700} color={ "#fff"}>
-                {seatmanagement.length}
-              </Typography>
-              <Typography>Seat Management</Typography>
-            </div>
-            <AppstoreOutlined style={iconStyle} />
-          </Paper>
-        </Link>
-      </Grid>
+        <List>
+          {recentInstitutions.map((inst) => (
+            <ListItem key={inst._id} divider>
+              <ListItemText
+                primary={inst.name}
+                secondary={`${inst.email} • ${inst.city || "No city"}`}
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Paper>
 
-    </Grid>
+    </>
   );
 };
 

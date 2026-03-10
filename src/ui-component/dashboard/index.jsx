@@ -10,6 +10,7 @@ import ProfileModal from "./ProfileModal";
 // import { getUserCount, getUsers } from 'container/UsersContainer/slice';
 // import { dashCount } from 'container/DashboardContainer/slice';
 import MainCard from 'ui-component/cards/MainCard';
+import { getInstitutions } from "container/institutecontainer/slice";
 
 
 const DashboardDefault = () => {
@@ -27,19 +28,27 @@ const DashboardDefault = () => {
   }, [userData]);
 
   // ✅ Dashboard data effect (SEPARATE)
-  useEffect(() => {
-    const urls = {
-      facilities: `facilities?filter={"limit":${limit},"skip":${page},"order":["createdOn DESC"]}`,
-      users: `users?filter={"limit":${limit},"skip":${page},"order":["createdOn DESC"]}`,
-      issues: `issues?filter={"limit":${limit},"skip":${page},"order":["createdOn DESC"]}`,
-      feedback: `feedbacks?filter={"limit": 5,"skip": 0}`
-    };
+  // ✅ Dashboard data effect (SEPARATE)
+useEffect(() => {
 
-    const draftFacilitiesUrl = `facilities?filter=${encodeURIComponent(
-      JSON.stringify({
-        where: { status: 'draft' }
-      })
-    )}`;
+  dispatch(getInstitutions()); // ✅ FETCH INSTITUTIONS
+
+  const urls = {
+    facilities: `facilities?filter={"limit":${limit},"skip":${page},"order":["createdOn DESC"]}`,
+    users: `users?filter={"limit":${limit},"skip":${page},"order":["createdOn DESC"]}`,
+    issues: `issues?filter={"limit":${limit},"skip":${page},"order":["createdOn DESC"]}`,
+    feedback: `feedbacks?filter={"limit": 5,"skip": 0}`
+  };
+
+  const draftFacilitiesUrl = `facilities?filter=${encodeURIComponent(
+    JSON.stringify({
+      where: { status: 'draft' }
+    })
+  )}`;
+
+}, [dispatch, limit, page]);
+
+   
 
     // dispatch calls here
 
@@ -55,7 +64,6 @@ const DashboardDefault = () => {
     // dispatch(getIssueReports(urls.issues));
     // dispatch(getUsers(urls.users));
     // dispatch(dashCount());
-  }, [dispatch, limit, page]);
 
   return (
     <Box

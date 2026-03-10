@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCourses } from "../../container/coursecontainer/slice";
+import { getCourses } from "../../container/institutecontainer/slice";
 
 import {
   Box,

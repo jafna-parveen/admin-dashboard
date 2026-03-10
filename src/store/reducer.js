@@ -2,20 +2,17 @@ import { combineReducers } from "redux";
 
 import loginReducer from "container/LoginContainer/slice";
 import customizationReducer from "./customizationReducer";
-import ratingReducer from "container/RatingContainer/slice";
-import coursReducer from "container/coursecontainer/slice";
-import orderReducer from "container/ordercontainer/slice";
-import enquiryReducer from 'container/enquirycontainer/slice';
+import subCategoryReducer from "container/subcategorycontainer/slice";
+import institutionReducer from "container/institutecontainer/slice";
+import categoryReducer from "container/categorycontainer/slice";
 
 const reducer = combineReducers({
 
- login: loginReducer,
- customization: customizationReducer,
- rating: ratingReducer,
- course: coursReducer,
- order: orderReducer,
- enquiry: enquiryReducer
-
+  login: loginReducer,
+  customization: customizationReducer,
+   subcategory: subCategoryReducer,
+  institution: institutionReducer,   // ✅ changed
+  category: categoryReducer
 
 });
 

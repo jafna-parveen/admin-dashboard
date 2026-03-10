@@ -7,35 +7,31 @@ import Loadable from 'ui-component/Loadable';
 import AuthGuard from 'utils/authGuard';
 
 import InstitutionProfile from 'ui-component/institution-profile';
-// dashboard routing
 
 // Pages
 const DashboardDefault = Loadable(lazy(() => import('ui-component/dashboard')));
-const Course = Loadable(lazy(() => import('ui-component/courses')));
+const Institutions = Loadable(lazy(() => import('ui-component/institutions')));
 const Students = Loadable(lazy(() => import('ui-component/students')));
 const Seatmanagement = Loadable(lazy(() => import('ui-component/seatmanagement')));
 const Order = Loadable(lazy(() => import('ui-component/order')));
-const Enquiry= Loadable(lazy(() => import('ui-component/enquiry')));
-
-/* ✅ Ratings Page */
-const UserRatingPage = Loadable(
-  lazy(() => import('ui-component/user_rating'))
-);
+const Category = Loadable(lazy(() => import('ui-component/category')));
+const Subcategory = Loadable(lazy(() => import('ui-component/subcategory')));
 
 const MainRoutes = {
   path: '/',
   element: (
-    <AuthGuard user={['Vendor', 'Surveyor', 'Requester','Institution']}>
+    <AuthGuard user={['Vendor', 'Surveyor', 'Requester', 'Institution']}>
       <MainLayout />
     </AuthGuard>
   ),
+
   children: [
-    
+
+    /* Default route */
     {
-  path: '',
-  element: <Navigate to="/login" replace />
-},
-   
+      index: true,
+      element: <Navigate to="/dashboard" replace />
+    },
 
     {
       path: 'dashboard',
@@ -43,8 +39,8 @@ const MainRoutes = {
     },
 
     {
-      path: 'courses',
-      element: <Course />
+      path: 'institutions',
+      element: < Institutions/>
     },
 
     {
@@ -53,9 +49,10 @@ const MainRoutes = {
     },
 
     {
-      path: 'enquiry',
-      element: <Enquiry />
+      path: 'category',
+      element: <Category />
     },
+
     {
       path: 'order',
       element: <Order />
@@ -66,19 +63,15 @@ const MainRoutes = {
       element: <Seatmanagement />
     },
 
-    /* ✅ Ratings Page */
     {
-      path: 'rating',
-      element: <UserRatingPage />
-
+      path: 'subcategory',
+      element: <Subcategory />
     },
+
     {
-  path: 'institution-profile',
-  element: <InstitutionProfile />
-}
-
-    
-
+      path: 'institution-profile',
+      element: <InstitutionProfile />
+    }
 
   ]
 };

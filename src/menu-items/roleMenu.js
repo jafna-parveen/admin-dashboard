@@ -1,26 +1,20 @@
 import {
   IconLayoutDashboard,
-  IconBook,
-  IconUsers,
-  IconArmchair,
-  IconStar,
-  IconBell,
-  IconFileAnalytics,
-  IconShoppingCart,
-  IconMessageDots
+  IconBuilding,
+  IconCategory,
+  IconHierarchy,
+  IconHeadset
 } from '@tabler/icons-react';
+
 // constant
 const icons = {
   IconLayoutDashboard,
-  IconBook,
-  IconUsers,
-  IconArmchair,
-  IconStar,
-  IconBell,
-  IconFileAnalytics,
-  IconShoppingCart,
-  IconMessageDots
+  IconBuilding,
+  IconCategory,
+  IconHierarchy,
+  IconHeadset
 };
+
 const RoleMenu = {
   id: 'dashboard',
   title: '',
@@ -35,69 +29,37 @@ const RoleMenu = {
       breadcrumbs: false
     },
     {
-      id: 'courses',
-      title: 'Courses',
+      id: 'institutions',
+      title: 'Institutions',
       type: 'item',
-      url: '/courses',
-      icon: icons.IconBook,
+      url: '/institutions',
+      icon: icons.IconBuilding,
       breadcrumbs: false
     },
     {
-      id: 'students',
-      title: 'Students',
+      id: 'category',
+      title: 'Category',
       type: 'item',
-      url: '/students',
-      icon: icons.IconUsers,
-      breadcrumbs: false
-    },
-     {
-      id: 'enquiry',
-      title: 'Enquiry',
-      type: 'item',
-      url: '/enquiry',
-      icon: icons.IconMessageDots,
+      url: '/category',
+      icon: icons.IconCategory,
       breadcrumbs: false
     },
     {
-      id: 'seat-management',
-      title: 'Seat Management',
+      id: 'subcategory',
+      title: 'Sub Category',
       type: 'item',
-      url: '/seat-management',
-      icon: icons.IconArmchair,
+      url: '/subcategory',
+      icon: icons.IconHierarchy,
       breadcrumbs: false
     },
-//     {
-//   id: 'order',
-//   title: 'Orders',
-//   type: 'item',
-//   url: '/order',
-//   icon: icons.IconShoppingCart,
-//   breadcrumbs: false
-// },
-
     {
-      id: 'rating',
-      title: 'Ratings & Feedback',
+      id: 'support',
+      title: 'Support',
       type: 'item',
-      url: '/rating',
-      icon: icons.IconStar,
+      url: '/support',
+      icon: icons.IconHeadset,
       breadcrumbs: false
-    },
-    // {
-    //   id: 'notifications',
-    //   title: 'Notification',
-    //   type: 'item',
-    //   url: '/notification',
-    //   icon: icons.IconBell,
-    //   breadcrumbs: false
-    // },
-   
-    
-     
-
-
-
-
+    }
   ]
 };
 

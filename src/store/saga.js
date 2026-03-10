@@ -1,24 +1,18 @@
 import { all, call } from "redux-saga/effects";
 
 import LoginActionWatcher from "container/LoginContainer/saga";
-import ratingActionWatcher from "container/RatingContainer/saga";
-import coursWatcher from "container/coursecontainer/saga";
-import OrderWatcher from "container/ordercontainer/saga";
-import enquiryWatcher from 'container/enquirycontainer/saga';
-
-
+import subCategoryWatcher from "container/subcategorycontainer/saga";
+import institutionWatcher from "container/institutecontainer/saga";
+import categoryWatcher from "container/categorycontainer/saga";
 
 function* rootSaga() {
 
- yield all([
-
-  call(LoginActionWatcher),
-  call(ratingActionWatcher),
-  call(coursWatcher),
-  call(OrderWatcher),
-     call(enquiryWatcher)
-
- ]);
+  yield all([
+    call(LoginActionWatcher),
+  call(subCategoryWatcher),
+    call(institutionWatcher),   // ✅ changed
+   call(categoryWatcher)
+  ]);
 
 }
 
