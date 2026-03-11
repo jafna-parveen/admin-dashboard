@@ -17,6 +17,9 @@ const Order = Loadable(lazy(() => import('ui-component/order')));
 const Category = Loadable(lazy(() => import('ui-component/category')));
 const Subcategory = Loadable(lazy(() => import('ui-component/subcategory')));
 
+/* ✅ SUPPORT PAGE */
+const Support = Loadable(lazy(() => import('ui-component/support')));
+
 const MainRoutes = {
   path: '/',
   element: (
@@ -40,7 +43,7 @@ const MainRoutes = {
 
     {
       path: 'institutions',
-      element: < Institutions/>
+      element: <Institutions />
     },
 
     {
@@ -54,6 +57,11 @@ const MainRoutes = {
     },
 
     {
+      path: 'subcategory',
+      element: <Subcategory />
+    },
+
+    {
       path: 'order',
       element: <Order />
     },
@@ -63,9 +71,10 @@ const MainRoutes = {
       element: <Seatmanagement />
     },
 
+    /* ✅ SUPPORT PAGE */
     {
-      path: 'subcategory',
-      element: <Subcategory />
+      path: 'support',
+      element: <Support />
     },
 
     {

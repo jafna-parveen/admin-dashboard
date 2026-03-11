@@ -1,5 +1,16 @@
-import React from "react";
-import { Grid, Paper, Typography, Box, List, ListItem, ListItemText } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Chip
+} from "@mui/material";
+
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -10,12 +21,37 @@ import {
   CustomerServiceOutlined
 } from "@ant-design/icons";
 
+import axios from "axios";
+
 const AnalyticsCard = () => {
 
-  const institutions = useSelector((state) => state.institution?.list || []);
   const category = useSelector((state) => state.category?.list || []);
   const subcategory = useSelector((state) => state.subcategory?.list || []);
   const support = useSelector((state) => state.support?.list || []);
+
+  const [institutions, setInstitutions] = useState([]);
+
+  /* ================= FETCH INSTITUTIONS ================= */
+
+  const fetchInstitutions = async () => {
+    try {
+
+      const res = await axios.get(
+        "http://localhost:7000/api/allinsti"
+      );
+
+      setInstitutions(res.data);
+
+    } catch (error) {
+
+      console.log("Institution fetch error:", error);
+
+    }
+  };
+
+  useEffect(() => {
+    fetchInstitutions();
+  }, []);
 
   /* ================= RECENT INSTITUTIONS ================= */
 
@@ -46,7 +82,8 @@ const AnalyticsCard = () => {
 
   return (
     <>
-      {/* ================= CARDS ================= */}
+
+      {/* ================= DASHBOARD CARDS ================= */}
 
       <Grid container spacing={3} mb={4}>
 
@@ -80,7 +117,7 @@ const AnalyticsCard = () => {
           </Link>
         </Grid>
 
-        {/* SUB CATEGORY */}
+        {/* SUBCATEGORY */}
         <Grid item xs={12} sm={6} md={3}>
           <Link to="/subcategory" style={{ textDecoration: "none" }}>
             <Paper sx={cardStyle}>
@@ -112,23 +149,85 @@ const AnalyticsCard = () => {
 
       </Grid>
 
-      {/* ================= RECENT INSTITUTIONS ================= */}
+      {/* ================= RECENT INSTITUTIONS TABLE ================= */}
 
-      <Paper sx={{ p: 3, borderRadius: 3 }}>
+      <Paper
+        sx={{
+          p: 3,
+          borderRadius: 3,
+          borderLeft: "5px solid #ea580c",
+          boxShadow: 2
+        }}
+      >
+
         <Typography variant="h6" mb={2}>
           Recently Added Institutions
         </Typography>
 
-        <List>
-          {recentInstitutions.map((inst) => (
-            <ListItem key={inst._id} divider>
-              <ListItemText
-                primary={inst.name}
-                secondary={`${inst.email} • ${inst.city || "No city"}`}
-              />
-            </ListItem>
-          ))}
-        </List>
+        <Table>
+
+          <TableHead sx={{ background: "#f8fafc" }}>
+
+            <TableRow>
+
+              <TableCell sx={{ fontWeight: 600 }}>Institution</TableCell>
+              <TableCell sx={{ fontWeight: 600 }}>Email</TableCell>
+              <TableCell sx={{ fontWeight: 600 }}>Phone</TableCell>
+              <TableCell sx={{ fontWeight: 600 }}>City</TableCell>
+              <TableCell sx={{ fontWeight: 600 }}>Status</TableCell>
+
+            </TableRow>
+
+          </TableHead>
+
+          <TableBody>
+
+            {recentInstitutions.length > 0 ? (
+
+              recentInstitutions.map((inst) => (
+
+                <TableRow key={inst._id} hover>
+
+                  <TableCell>{inst.name}</TableCell>
+                  <TableCell>{inst.email}</TableCell>
+                  <TableCell>{inst.phone || "-"}</TableCell>
+                  <TableCell>{inst.city || "-"}</TableCell>
+
+                  <TableCell>
+
+                    <Chip
+                      label={inst.isActive ? "Active" : "Inactive"}
+                      size="small"
+                      sx={{
+                        background: inst.isActive
+                          ? "#22c55e"
+                          : "#f59e0b",
+                        color: "white"
+                      }}
+                    />
+
+                  </TableCell>
+
+                </TableRow>
+
+              ))
+
+            ) : (
+
+              <TableRow>
+
+                <TableCell colSpan={5} align="center">
+                  No Institutions Found
+                </TableCell>
+
+              </TableRow>
+
+            )}
+
+          </TableBody>
+
+        </Table>
+
       </Paper>
 
     </>

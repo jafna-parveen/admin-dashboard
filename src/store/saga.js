@@ -4,6 +4,7 @@ import LoginActionWatcher from "container/LoginContainer/saga";
 import subCategoryWatcher from "container/subcategorycontainer/saga";
 import institutionWatcher from "container/institutecontainer/saga";
 import categoryWatcher from "container/categorycontainer/saga";
+import supportWatcher from "container/supportcontainer/saga";
 
 function* rootSaga() {
 
@@ -11,7 +12,8 @@ function* rootSaga() {
     call(LoginActionWatcher),
   call(subCategoryWatcher),
     call(institutionWatcher),   // ✅ changed
-   call(categoryWatcher)
+   call(categoryWatcher),
+   call(supportWatcher)
   ]);
 
 }
