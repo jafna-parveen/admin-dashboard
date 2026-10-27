@@ -106,7 +106,7 @@ useEffect(() => {
               <UserOutlined />
             </Box>
             <Box>
-              <Typography sx={{ fontSize: 14, fontWeight: 600 }}>Platform Institute Dashboard</Typography>
+              <Typography sx={{ fontSize: 14, fontWeight: 600 }}>Platform Admin Dashboard</Typography>
               <Typography sx={{ fontSize: 13 , fontWeight: 500 ,textTransform:"capitalize"}}>
   Hello  {userData?.institutionName}
 </Typography>

@@ -110,9 +110,7 @@ const Support = () => {
   const handleEdit = (row)=>{
 
     setSelected(row);
-
     setReply(row.reply || "");
-
     setOpenReply(true);
 
   };
@@ -179,6 +177,14 @@ const Support = () => {
 
   return(
 
+  <Box
+    sx={{
+      backgroundColor:"rgb(230, 237, 248)",
+      minHeight:"100vh",
+      width:"100%"
+    }}
+  >
+
   <Box sx={{p:3}}>
 
     <Typography
@@ -200,6 +206,7 @@ const Support = () => {
         onClick={()=>setOpenType(true)}
         sx={{
           background:"#0f172a",
+          textTransform:"none",
           "&:hover":{background:"#020617"}
         }}
       >
@@ -304,10 +311,7 @@ const Support = () => {
 
           <TableRow>
 
-            <TableCell
-              colSpan={6}
-              align="center"
-            >
+            <TableCell colSpan={6} align="center">
               No Support Requests Found
             </TableCell>
 
@@ -423,6 +427,8 @@ const Support = () => {
       </Box>
 
     </Dialog>
+
+  </Box>
 
   </Box>
 

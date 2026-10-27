@@ -62,10 +62,10 @@ const AnalyticsCard = () => {
   const cardStyle = {
     p: 3,
     borderRadius: 4,
-    background: "#0f172a",
+    background: "#fff",
     borderLeft: "5px solid #ea580c",
     boxShadow: 3,
-    color: "#fff",
+    color: "#0f172a",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",

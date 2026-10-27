@@ -36,7 +36,8 @@ const InstiDashboard = () => {
     email: "",
     phone: "",
     city: "",
-    password: ""
+    password: "",
+    profileImage: null
   });
 
   /* ================= FETCH ================= */
@@ -88,33 +89,40 @@ const InstiDashboard = () => {
 
   };
 
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, profileImage: e.target.files[0] });
+  };
+
   /* ================= ADD / UPDATE ================= */
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     try {
+      const submitData = new FormData();
+      Object.keys(formData).forEach((key) => {
+        if (formData[key] !== null && formData[key] !== undefined) {
+          submitData.append(key, formData[key]);
+        }
+      });
 
       if (editMode) {
-
         await axios.put(
           "http://localhost:7000/api/update",
-          formData,
-          { withCredentials: true }
+          submitData,
+          { 
+            withCredentials: true,
+            headers: { "Content-Type": "multipart/form-data" }
+          }
         );
-
         alert("Institution updated successfully");
-
       } else {
-
         await axios.post(
           "http://localhost:7000/api/register",
-          formData
+          submitData,
+          { headers: { "Content-Type": "multipart/form-data" } }
         );
-
         alert("Institution added successfully");
-
       }
 
       fetchInstitutions();
@@ -124,7 +132,8 @@ const InstiDashboard = () => {
         email: "",
         phone: "",
         city: "",
-        password: ""
+        password: "",
+        profileImage: null
       });
 
       setEditMode(false);
@@ -182,7 +191,8 @@ const InstiDashboard = () => {
       email: inst.email,
       phone: inst.phone,
       city: inst.city,
-      password: ""
+      password: "",
+      profileImage: null
     });
 
     setEditMode(true);
@@ -387,6 +397,18 @@ const InstiDashboard = () => {
               margin="normal"
               InputProps={{ readOnly: true }}
             />
+
+            <Box mt={2}>
+              <Typography variant="body2" color="textSecondary" mb={1}>
+                Institution Logo / Profile Image
+              </Typography>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ width: "100%", padding: "10px", border: "1px solid #cbd5e1", borderRadius: "4px" }}
+              />
+            </Box>
 
             <Button
               type="submit"

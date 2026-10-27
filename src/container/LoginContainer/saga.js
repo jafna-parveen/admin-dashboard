@@ -32,7 +32,7 @@ function* login(action) {
       // ✅ FIXED HERE
       yield put(actionType.userMe());
 
-      yield call(action.payload.navigate, '/dashboard');
+      // yield call(action.payload.navigate, '/dashboard');
     } else {
       yield call(toast.error, 'Login failed. Please try again.', { autoClose: 3000 });
     }
